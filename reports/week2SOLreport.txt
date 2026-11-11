@@ -1,0 +1,29 @@
+# Week 02 summary
+
+## What I learned
+- Scaffold splitting is fundamentally more rigorous compared to random splitting
+
+## What I implemented
+- Compared four combinations on the **ESOL (Delaney) aqueous-solubility
+    dataset** (~1,128 molecules): Random Forest + RDKit descriptors, MLP +
+    descriptors, Random Forest + Morgan fingerprints, and MLP + fingerprints.
+
+## Results
+- Dataset/source:DeepChem Delaney dataset https://deepchemdata.s3-us-west-1.amazonaws.com/datasets/delaney-processed.csv 
+- Split strategy: random, scaffold
+- Metrics: MAE, RMSE, R**2
+- Main observation:
+Summary of Best Combinations:
+Random Split: MLP + descriptors achieved the best overall performance ($R^2 \approx 0.85$), closely followed by Random Forest + descriptors.
+Scaffold Split: Both MLP + descriptors and Random Forest + descriptors performed exceptionally well, with MLP showing a slightly better RMSE/R² and Random Forest achieving a slightly lower MAE.
+Why Scaffold Splitting is More Demanding:
+Scaffold splitting is fundamentally more rigorous because it separates molecules based on their core chemical scaffolds, ensuring the test set contains entirely new, unseen structures. Unlike random splits—where structurally similar molecules are shared between training and testing sets—scaffold splits test a model's true generalization capability over out-of-distribution chemical space.
+
+## Limitations / failure cases
+- ESOL is a small, single-endpoint benchmark. It does not establish performance
+on CYP inhibition, protein binding, or other endpoints. A rigorous benchmark
+would use repeated splits, a prespecified tuning protocol, and uncertainty
+estimates. This exercise is intended to teach a reproducible comparison,
+not to produce a publication-grade benchmark.
+
+
